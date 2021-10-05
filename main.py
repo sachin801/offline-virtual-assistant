@@ -1,6 +1,8 @@
 from vosk import Model, KaldiRecognizer
 import os
 import pyaudio
+import datetime
+from datetime import date
 import json
 import pyttsx3
 
@@ -68,4 +70,15 @@ while True:
         text = json.loads(text)
         print(text['text'])
         speak(text['text'])
+        command = text['text']
+        if 'time' in text['text']:
+            cur_time = datetime.datetime.now().strftime('%I:%M %p')
+            print(cur_time)
+            speak('time now is' + cur_time)
+            continue
+        if 'date' in text['text']:
+            cur_date = date.today()
+            print(cur_date)
+            speak(cur_date)
+            continue
 
