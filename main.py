@@ -18,6 +18,19 @@ def speak(text):
 
 speak('on')
 print('listening...')
+
+while True:
+    #print('listening...')
+    data = stream.read(8000)
+    if len(data) == 0:
+        break
+    if rec.AcceptWaveform(data):
+
+        text=rec.Result()
+        text=json.loads(text)
+        if text['text']=='jarvis' or text['text']=='hi jarvis' or text['text']=='hello jarvis' :
+            print(text['text'])
+            break
 while True:
 
     data = stream.read(8000)
