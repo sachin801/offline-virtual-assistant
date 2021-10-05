@@ -69,7 +69,7 @@ while True:
 
         text = rec.Result()
         text = json.loads(text)
-        print(text['text'])
+        #print(text['text'])
         #speak(text['text'])
         command = text['text']
         if 'time' in text['text']:
@@ -85,16 +85,20 @@ while True:
         if 'thank you' in command:
             speak('you are welcome')
             continue
-        # if 'switch off' or 'stop' or 'exit' in command:
-        #     break
+        if 'switch off' in command:
+            break
         if 'jarvis' in command:
             command.replace('jarvis', '')
 
-        print(command)
+        #print(command)
         if 'note' in command:
             print('opening notepad...')
             print(os.system('notepad.exe'))
+            continue
         if command == 'open calculator':
             print('opening calculator...')
             subprocess.Popen(['C:\Windows\System32\calc.exe'])
+            continue
+        print(command)
+        speak('Sorry i could not understand')
 
