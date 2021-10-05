@@ -5,6 +5,7 @@ import datetime
 from datetime import date
 import json
 import pyttsx3
+import subprocess
 
 model = Model("model")
 rec = KaldiRecognizer(model, 16000)
@@ -69,7 +70,7 @@ while True:
         text = rec.Result()
         text = json.loads(text)
         print(text['text'])
-        speak(text['text'])
+        #speak(text['text'])
         command = text['text']
         if 'time' in text['text']:
             cur_time = datetime.datetime.now().strftime('%I:%M %p')
@@ -84,6 +85,16 @@ while True:
         if 'thank you' in command:
             speak('you are welcome')
             continue
-        if 'switch off' or 'stop' or 'exit' in command:
-            break
+        # if 'switch off' or 'stop' or 'exit' in command:
+        #     break
+        if 'jarvis' in command:
+            command.replace('jarvis', '')
+
+        print(command)
+        if 'note' in command:
+            print('opening notepad...')
+            print(os.system('notepad.exe'))
+        if command == 'open calculator':
+            print('opening calculator...')
+            subprocess.Popen(['C:\Windows\System32\calc.exe'])
 
