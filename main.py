@@ -81,4 +81,9 @@ while True:
             print(cur_date)
             speak(cur_date)
             continue
+        if 'thank you' in command:
+            speak('you are welcome')
+            continue
+        if 'switch off' or 'stop' or 'exit' in command:
+            break
 
