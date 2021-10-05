@@ -28,7 +28,6 @@ def initial():
     while True:
         data = stream.read(8000)
         if len(data) == 0:
-            print('returned')
             break
         if rec.AcceptWaveform(data):
             text = rec.Result()
@@ -36,7 +35,6 @@ def initial():
 
             print(text['text'])
             if text['text'] == 'yes' or text['text'] == 'yeah':
-                #print('yes')
                 speak('i hoped so this made my day')
                 return
             elif text['text'] == 'no' or text['text'] == 'nah':
@@ -54,8 +52,8 @@ while True:
 
         text = rec.Result()
         text = json.loads(text)
-        print(text['text'])
-        if text['text'] == 'jarvis' or text['text']=='hi jarvis' or text['text']=='hello jarvis' :
+        #print(text['text'])
+        if text['text'] == 'navin' or text['text']=='hi navin' or text['text']=='hello navin':
             print(text['text'])
             break
 
@@ -69,7 +67,7 @@ while True:
 
         text = rec.Result()
         text = json.loads(text)
-        #print(text['text'])
+        print(text['text'])
         #speak(text['text'])
         command = text['text']
         if 'time' in text['text']:
@@ -87,8 +85,8 @@ while True:
             continue
         if 'switch off' in command:
             break
-        if 'jarvis' in command:
-            command.replace('jarvis', '')
+        if 'navin' in command:
+            command.replace('navin', '')
 
         #print(command)
         if 'note' in command:
