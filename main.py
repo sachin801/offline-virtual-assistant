@@ -1,26 +1,24 @@
-# from pocketsphinx import LiveSpeech
-# for phrase in LiveSpeech(): print(phrase)
+from vosk import Model, KaldiRecognizer
+import os
+import pyaudio
+import json
 
-import pyttsx3
-import speech_recognition as sr
+model = Model("model")
+rec = KaldiRecognizer(model, 16000)
+# Opens microphone for listening.
+p = pyaudio.PyAudio()
+stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8000)
+stream.start_stream()
 
-listener = sr.Recognizer()
-engine = pyttsx3.init()
-#creating recognizer
+print('listening...')
+while True:
 
-engine.say('How are you')
-engine.runAndWait()
+    data = stream.read(4000)
+    if len(data) == 0:
+        break
+    if rec.AcceptWaveform(data):
 
-try:
-    with sr.Microphone() as source:
-        print('listening...')
-        voice = listener.listen(source)
-        command1 = listener.recognize_sphinx(voice)
-        print("sphinx:", command1)
-        # if 'jarvis' in command:
-        #     #engine.say(command)
-        #     #engine
-        #     print(command)
-except:
-    pass
+        text = rec.Result()
+        text = json.loads(text)
+        print(text['text'])
 
